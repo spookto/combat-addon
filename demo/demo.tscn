@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://b64h7yaey4wdh"]
+
+[ext_resource type="Texture2D" uid="uid://ctel27ojknke8" path="res://icon.svg" id="1_d6po2"]
+[ext_resource type="PackedScene" uid="uid://dxipxja0pys8x" path="res://demo/character.tscn" id="2_ytiva"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d6po2"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_ytiva"]
+sky_material = SubResource("ProceduralSkyMaterial_d6po2")
+
+[sub_resource type="Environment" id="Environment_dar0o"]
+background_mode = 2
+sky = SubResource("Sky_ytiva")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ytiva"]
+albedo_texture = ExtResource("1_d6po2")
+uv1_triplanar = true
+
+[node name="Demo" type="Node3D" unique_id=451695311]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=360592638]
+environment = SubResource("Environment_dar0o")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1466318626]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1434902335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+use_collision = true
+size = Vector3(64, 2, 64)
+material = SubResource("StandardMaterial3D_ytiva")
+
+[node name="Character" parent="." unique_id=505424294 instance=ExtResource("2_ytiva")]
+
+[node name="Label3D" type="Label3D" parent="." unique_id=769647157]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -8)
+pixel_size = 0.015
+text = "TODO: Add targets and show how damage would work"

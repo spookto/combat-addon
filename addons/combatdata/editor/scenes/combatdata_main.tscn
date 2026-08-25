@@ -1,0 +1,844 @@
+[gd_scene format=3 uid="uid://51n0dwra77fi"]
+
+[ext_resource type="Script" uid="uid://og30y41e8lyq" path="res://addons/combatdata/editor/src/combatdata_main.gd" id="1_cjgxc"]
+[ext_resource type="Script" uid="uid://b2aaac35hy2yv" path="res://addons/combatdata/editor/src/combatdata_toolbar.gd" id="2_hemxc"]
+[ext_resource type="Script" uid="uid://jd17gbj6wuql" path="res://addons/combatdata/editor/src/icon_button.gd" id="3_v5kfy"]
+[ext_resource type="Texture2D" uid="uid://ctel27ojknke8" path="res://icon.svg" id="4_hemxc"]
+[ext_resource type="PackedScene" uid="uid://dwitchp7sth7w" path="res://addons/combatdata/editor/scenes/combatdata_move_editor.tscn" id="4_lqd07"]
+[ext_resource type="PackedScene" uid="uid://qxqe83xg1b0y" path="res://addons/combatdata/editor/scenes/vector_3_spin_box.tscn" id="5_acrle"]
+[ext_resource type="Script" uid="uid://b2inn47xxetrv" path="res://addons/combatdata/editor/src/combatdata_camera.gd" id="5_hx2qx"]
+[ext_resource type="PackedScene" uid="uid://bsou1j561oc5l" path="res://addons/combatdata/editor/scenes/combatdata_frame_timeline.tscn" id="8_3gm8r"]
+[ext_resource type="PackedScene" uid="uid://bpfeb0i5hr1tm" path="res://addons/combatdata/editor/scenes/combatdata_inspector_tree.tscn" id="10_3gm8r"]
+[ext_resource type="PackedScene" uid="uid://bgyxsdh63ktwu" path="res://addons/combatdata/editor/scenes/combatdata_tracks_editor.tscn" id="10_lqd07"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7f3pk"]
+albedo_texture = ExtResource("4_hemxc")
+uv1_triplanar = true
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wtef1"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_omul2"]
+sky_material = SubResource("ProceduralSkyMaterial_wtef1")
+
+[sub_resource type="Environment" id="Environment_4ltj5"]
+background_mode = 2
+sky = SubResource("Sky_omul2")
+ambient_light_color = Color(1, 0.901961, 0.956863, 1)
+ambient_light_sky_contribution = 0.7
+tonemap_mode = 2
+ssao_enabled = true
+ssil_enabled = true
+glow_enabled = true
+
+[sub_resource type="InputEventKey" id="InputEventKey_wtpsc"]
+device = -1
+pressed = true
+keycode = 82
+unicode = 114
+
+[sub_resource type="Shortcut" id="Shortcut_uml5t"]
+events = [SubResource("InputEventKey_wtpsc")]
+
+[sub_resource type="ImageTexture" id="ImageTexture_r1xrl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1sm0c"]
+
+[node name="MainScreen" type="PanelContainer" unique_id=1293909426]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_type_variation = &"MarginContainer4px"
+script = ExtResource("1_cjgxc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2139307172]
+layout_mode = 2
+
+[node name="ToolbarContainer" type="PanelContainer" parent="VBoxContainer" unique_id=953526399]
+layout_mode = 2
+theme_type_variation = &"PanelContainerTabbarInner"
+
+[node name="Toolbar" type="HBoxContainer" parent="VBoxContainer/ToolbarContainer" unique_id=1416737458]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("2_hemxc")
+
+[node name="Content" type="HSplitContainer" parent="VBoxContainer" unique_id=345524983]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="InformationEditor" type="VSplitContainer" parent="VBoxContainer/Content" unique_id=1102712853]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+
+[node name="MovesList" type="VBoxContainer" parent="VBoxContainer/Content/InformationEditor" unique_id=575420831]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Content/InformationEditor/MovesList" unique_id=1653116902]
+visible = false
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Content/InformationEditor/MovesList/HBoxContainer" unique_id=60282658]
+custom_minimum_size = Vector2(100, 32)
+layout_mode = 2
+text = "Character"
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/Content/InformationEditor/MovesList/HBoxContainer" unique_id=1296456525]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "res://scenes/player/player.tscn"
+editable = false
+caret_blink = true
+caret_blink_interval = 0.5
+
+[node name="CharacterReloadButton" type="Button" parent="VBoxContainer/Content/InformationEditor/MovesList/HBoxContainer" unique_id=1607739467]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Reload current character or restore previous state if no character is selected."
+script = ExtResource("3_v5kfy")
+icon_name = &"Reload"
+
+[node name="CharacterButton" type="Button" parent="VBoxContainer/Content/InformationEditor/MovesList/HBoxContainer" unique_id=1993308144]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+script = ExtResource("3_v5kfy")
+icon_name = &"Folder"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/Content/InformationEditor/MovesList" unique_id=249349008]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Content/InformationEditor/MovesList/HBoxContainer2" unique_id=640806656]
+layout_mode = 2
+text = "Weapon"
+vertical_alignment = 1
+
+[node name="WeaponPath" type="LineEdit" parent="VBoxContainer/Content/InformationEditor/MovesList/HBoxContainer2" unique_id=816099421]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "res://resources/ingame/weapons/Pipe.tres"
+editable = false
+
+[node name="WeaponReloadButton" type="Button" parent="VBoxContainer/Content/InformationEditor/MovesList/HBoxContainer2" unique_id=1609883193]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Reload current weapon or restore previous state if no weapon is selected."
+theme_type_variation = &"FlatButton"
+script = ExtResource("3_v5kfy")
+icon_name = &"Reload"
+min_size = 0.0
+
+[node name="WeaponButton" type="Button" parent="VBoxContainer/Content/InformationEditor/MovesList/HBoxContainer2" unique_id=191670500]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"FlatButton"
+script = ExtResource("3_v5kfy")
+icon_name = &"Folder"
+min_size = 0.0
+
+[node name="EditWeapon" type="Button" parent="VBoxContainer/Content/InformationEditor/MovesList/HBoxContainer2" unique_id=1145128325]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"FlatButton"
+script = ExtResource("3_v5kfy")
+icon_name = &"Edit"
+min_size = 0.0
+
+[node name="Label" type="Label" parent="VBoxContainer/Content/InformationEditor/MovesList" unique_id=220479619]
+layout_mode = 2
+theme_type_variation = &"HeaderSmall"
+text = "Moves List"
+
+[node name="MovesFold" type="PanelContainer" parent="VBoxContainer/Content/InformationEditor/MovesList" unique_id=1623355842]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"TreeSecondary"
+
+[node name="MovesContainer" type="VBoxContainer" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold" unique_id=1225448954]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer" unique_id=1566255843]
+layout_mode = 2
+
+[node name="MoveAdd" type="Button" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer" unique_id=1280629115]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Add Move."
+flat = true
+script = ExtResource("3_v5kfy")
+icon_name = &"Add"
+
+[node name="MoveAddChild" type="Button" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer" unique_id=1529917521]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Add Child Move."
+disabled = true
+flat = true
+script = ExtResource("3_v5kfy")
+icon_name = &"ToolAddNode"
+
+[node name="MoveUp" type="Button" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer" unique_id=979479660]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Move up."
+disabled = true
+flat = true
+script = ExtResource("3_v5kfy")
+icon_name = &"MoveUp"
+
+[node name="MoveDown" type="Button" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer" unique_id=1999490640]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Move down."
+disabled = true
+flat = true
+script = ExtResource("3_v5kfy")
+icon_name = &"MoveDown"
+
+[node name="MoveLinkedChild" type="Button" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer" unique_id=321035050]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Add Linked Child Move."
+disabled = true
+flat = true
+script = ExtResource("3_v5kfy")
+icon_name = &"Instance"
+
+[node name="Control" type="Control" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer" unique_id=744316465]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MoveRefresh" type="Button" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer" unique_id=1931978995]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Refresh moves list."
+flat = true
+script = ExtResource("3_v5kfy")
+icon_name = &"Reload"
+
+[node name="MovePreview" type="Button" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer" unique_id=2021563919]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Preview generated movelist."
+flat = true
+script = ExtResource("3_v5kfy")
+icon_name = &"AnimationTrackList"
+
+[node name="MovePreviewDialog" type="AcceptDialog" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MovePreview" unique_id=1548385768]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Moves List"
+position = Vector2i(0, 36)
+size = Vector2i(600, 400)
+min_size = Vector2i(600, 400)
+ok_button_text = "Close"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MovePreview/MovePreviewDialog" unique_id=5664664]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 592.0
+offset_bottom = 356.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MovePreviewText" type="RichTextLabel" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MovePreview/MovePreviewDialog/VBoxContainer" unique_id=1999089458]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+
+[node name="CopyMoveListPreview" type="Button" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MovePreview/MovePreviewDialog/VBoxContainer/MovePreviewText" unique_id=1842889483]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_bottom = 32.0
+grow_horizontal = 0
+icon = ExtResource("4_hemxc")
+flat = true
+expand_icon = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MovePreview/MovePreviewDialog/VBoxContainer" unique_id=1152317351]
+layout_mode = 2
+
+[node name="MoveListZoomIcon" type="TextureRect" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MovePreview/MovePreviewDialog/VBoxContainer/HBoxContainer" unique_id=1032283094]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MoveListZoomSlider" type="HSlider" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MovePreview/MovePreviewDialog/VBoxContainer/HBoxContainer" unique_id=1479035096]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MoveRemove" type="Button" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer" unique_id=634644274]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Delete selected move."
+disabled = true
+flat = true
+script = ExtResource("3_v5kfy")
+icon_name = &"Remove"
+
+[node name="MoveRemoveDialog" type="ConfirmationDialog" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MoveRemove" unique_id=1094219315]
+ok_button_text = "Yes"
+
+[node name="Label" type="Label" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MoveRemove/MoveRemoveDialog" unique_id=87223009]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Are you sure?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MoveTree" type="Tree" parent="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer" unique_id=1506956919]
+unique_name_in_owner = true
+texture_repeat = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/icon_h_separation = 0
+theme_override_constants/button_margin = 0
+theme_override_constants/draw_relationship_lines = 1
+theme_override_constants/relationship_line_width = 1
+theme_override_constants/parent_hl_line_width = 3
+columns = 4
+allow_reselect = true
+hide_root = true
+select_mode = 1
+
+[node name="MoveEditor" parent="VBoxContainer/Content/InformationEditor" unique_id=1924471826 instance=ExtResource("4_lqd07")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BehaviorEditor" type="VSplitContainer" parent="VBoxContainer/Content" unique_id=1593081964]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SceneSubviewport" type="SubViewportContainer" parent="VBoxContainer/Content/BehaviorEditor" unique_id=317520078]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 0
+stretch = true
+mouse_target = true
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/Content/BehaviorEditor/SceneSubviewport" unique_id=520174100]
+own_world_3d = true
+handle_input_locally = false
+audio_listener_enable_3d = true
+canvas_cull_mask = 0
+oversampling = false
+size = Vector2i(846, 316)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="World3D" type="Node3D" parent="VBoxContainer/Content/BehaviorEditor/SceneSubviewport/SubViewport" unique_id=1797666115]
+unique_name_in_owner = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="VBoxContainer/Content/BehaviorEditor/SceneSubviewport/SubViewport/World3D" unique_id=1136865937]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_7f3pk")
+use_collision = true
+size = Vector3(50, 1, 50)
+
+[node name="Root3D" type="Node3D" parent="VBoxContainer/Content/BehaviorEditor/SceneSubviewport/SubViewport/World3D" unique_id=374535527]
+unique_name_in_owner = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="VBoxContainer/Content/BehaviorEditor/SceneSubviewport/SubViewport/World3D" unique_id=1353706794]
+environment = SubResource("Environment_4ltj5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="VBoxContainer/Content/BehaviorEditor/SceneSubviewport/SubViewport/World3D" unique_id=1773422133]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+light_color = Color(0.890196, 0.968627, 1, 1)
+light_energy = 0.4
+shadow_enabled = true
+shadow_opacity = 0.3
+
+[node name="Camera3D" type="Camera3D" parent="VBoxContainer/Content/BehaviorEditor/SceneSubviewport/SubViewport/World3D" unique_id=1022893661 node_paths=PackedStringArray("viewport_container")]
+unique_name_in_owner = true
+transform = Transform3D(-0.707106, -0.408248, 0.57735, 0, 0.816497, 0.57735, -0.707106, 0.408248, -0.57735, 6, 6, -6)
+keep_aspect = 0
+current = true
+script = ExtResource("5_hx2qx")
+viewport_container = NodePath("../../..")
+reset_rotation = false
+
+[node name="AudioListener3D" type="AudioListener3D" parent="VBoxContainer/Content/BehaviorEditor/SceneSubviewport/SubViewport/World3D/Camera3D" unique_id=1347343588]
+current = true
+
+[node name="SceneTimeline" type="VBoxContainer" parent="VBoxContainer/Content/BehaviorEditor" unique_id=568202408]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline" unique_id=1152141587]
+layout_mode = 2
+
+[node name="PauseButton" type="Button" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/HBoxContainer" unique_id=542947115]
+layout_mode = 2
+theme_type_variation = &"FlatButton"
+script = ExtResource("3_v5kfy")
+icon_name = &"Stop"
+min_size = 0.0
+
+[node name="StartButton" type="Button" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/HBoxContainer" unique_id=1187480021]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"FlatButton"
+script = ExtResource("3_v5kfy")
+icon_name = &"PlayStart"
+min_size = 0.0
+
+[node name="ContinueButton" type="Button" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/HBoxContainer" unique_id=172891640]
+layout_mode = 2
+theme_type_variation = &"FlatButton"
+script = ExtResource("3_v5kfy")
+icon_name = &"Play"
+min_size = 0.0
+
+[node name="FrameBox" type="SpinBox" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/HBoxContainer" unique_id=1851876161]
+unique_name_in_owner = true
+layout_mode = 2
+allow_greater = true
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/HBoxContainer" unique_id=576425448]
+layout_mode = 2
+
+[node name="TimeScaleButton" type="Button" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/HBoxContainer" unique_id=513061586]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"FlatButton"
+
+[node name="VSeparator3" type="VSeparator" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/HBoxContainer" unique_id=42478340]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/HBoxContainer" unique_id=669457176]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/HBoxContainer/HBoxContainer2" unique_id=1381032631]
+layout_mode = 2
+text = "Animation"
+vertical_alignment = 1
+
+[node name="AnimationButton" type="OptionButton" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/HBoxContainer/HBoxContainer2" unique_id=1044299807]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 32
+popup/item_0/text = "Block"
+popup/item_0/id = 0
+popup/item_1/text = "Dash"
+popup/item_1/id = 1
+popup/item_2/text = "Hurt"
+popup/item_2/id = 2
+popup/item_3/text = "HurtUp"
+popup/item_3/id = 3
+popup/item_4/text = "Idle"
+popup/item_4/id = 4
+popup/item_5/text = "InteractRead"
+popup/item_5/id = 5
+popup/item_6/text = "Jump"
+popup/item_6/id = 6
+popup/item_7/text = "PlayerFistsAnimations/FistAirDrop"
+popup/item_7/id = 7
+popup/item_8/text = "PlayerFistsAnimations/FistAirLand"
+popup/item_8/id = 8
+popup/item_9/text = "PlayerFistsAnimations/FistL1"
+popup/item_9/id = 9
+popup/item_10/text = "PlayerFistsAnimations/FistL1H"
+popup/item_10/id = 10
+popup/item_11/text = "PlayerFistsAnimations/FistL1HH"
+popup/item_11/id = 11
+popup/item_12/text = "PlayerFistsAnimations/FistL2"
+popup/item_12/id = 12
+popup/item_13/text = "PlayerFistsAnimations/FistL3"
+popup/item_13/id = 13
+popup/item_14/text = "PlayerHookAnimations/HookMoving"
+popup/item_14/id = 14
+popup/item_15/text = "PlayerHookAnimations/HookUse"
+popup/item_15/id = 15
+popup/item_16/text = "PlayerSwordAnimations/SwordAttack1"
+popup/item_16/id = 16
+popup/item_17/text = "PlayerSwordAnimations/SwordAttack2"
+popup/item_17/id = 17
+popup/item_18/text = "PlayerSwordAnimations/SwordAttack3"
+popup/item_18/id = 18
+popup/item_19/text = "PlayerSwordAnimations/SwordAttackAir1"
+popup/item_19/id = 19
+popup/item_20/text = "PlayerSwordAnimations/SwordAttackAir2"
+popup/item_20/id = 20
+popup/item_21/text = "PlayerSwordAnimations/SwordAttackDelay1"
+popup/item_21/id = 21
+popup/item_22/text = "PlayerSwordAnimations/SwordHeavyAir"
+popup/item_22/id = 22
+popup/item_23/text = "PlayerSwordAnimations/SwordHeavyAirLand"
+popup/item_23/id = 23
+popup/item_24/text = "PlayerSwordAnimations/SwordHeavyGround"
+popup/item_24/id = 24
+popup/item_25/text = "PlayerSwordAnimations/SwordHeavyGroundLaunch"
+popup/item_25/id = 25
+popup/item_26/text = "PlayerWeaponGunAnims/GunMelee1"
+popup/item_26/id = 26
+popup/item_27/text = "PlayerWeaponGunAnims/GunReload"
+popup/item_27/id = 27
+popup/item_28/text = "PlayerWeaponGunAnims/GunShoot"
+popup/item_28/id = 28
+popup/item_29/text = "Run"
+popup/item_29/id = 29
+popup/item_30/text = "RunLean"
+popup/item_30/id = 30
+popup/item_31/text = "RunLeanF"
+popup/item_31/id = 31
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/HBoxContainer" unique_id=350553103]
+layout_mode = 2
+
+[node name="ResetCharacterPosition" type="Button" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/HBoxContainer" unique_id=1811642662]
+layout_mode = 2
+theme_type_variation = &"FlatButton"
+shortcut = SubResource("Shortcut_uml5t")
+text = "Reset Position"
+
+[node name="FrameSlider" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline" unique_id=325351896 instance=ExtResource("8_3gm8r")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_icons/grabber = SubResource("ImageTexture_r1xrl")
+theme_override_icons/grabber_highlight = SubResource("ImageTexture_r1xrl")
+theme_override_icons/grabber_disabled = SubResource("ImageTexture_r1xrl")
+theme_override_icons/tick = SubResource("ImageTexture_r1xrl")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_1sm0c")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_1sm0c")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_1sm0c")
+
+[node name="SceneBottom" type="MarginContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline" unique_id=530506520]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"NoBorderAssetLib"
+theme_override_constants/margin_left = 0
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom" unique_id=611182945]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ControlsContainer" type="ScrollContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer" unique_id=960299293]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+scroll_hint_mode = 2
+
+[node name="ControlsVBox" type="VBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/ControlsContainer" unique_id=1106447004]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StateContainer" type="HBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/ControlsContainer/ControlsVBox" unique_id=648543255]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/ControlsContainer/ControlsVBox/StateContainer" unique_id=1520886596]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Current State"
+
+[node name="StateLabel" type="Label" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/ControlsContainer/ControlsVBox/StateContainer" unique_id=126415496]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Attacks" type="HBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/ControlsContainer/ControlsVBox" unique_id=1513982716]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/ControlsContainer/ControlsVBox/Attacks" unique_id=1262617313]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Attack Input"
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/ControlsContainer/ControlsVBox/Attacks" unique_id=760578766]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/ControlsContainer/ControlsVBox/Attacks/MarginContainer" unique_id=347867365]
+show_behind_parent = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_type_variation = &"TreeSecondary"
+
+[node name="AttackInputsContainer" type="GridContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/ControlsContainer/ControlsVBox/Attacks/MarginContainer" unique_id=2009212558]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 2
+
+[node name="HandlerState" type="HBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/ControlsContainer/ControlsVBox" unique_id=351511251]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/ControlsContainer/ControlsVBox/HandlerState" unique_id=1001551058]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Handler State"
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/ControlsContainer/ControlsVBox/HandlerState" unique_id=398749227]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/ControlsContainer/ControlsVBox/HandlerState/MarginContainer" unique_id=1451353380]
+show_behind_parent = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_type_variation = &"TreeSecondary"
+
+[node name="HandlerStateContainer" type="VBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/ControlsContainer/ControlsVBox/HandlerState/MarginContainer" unique_id=1844650855]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InfoVBox" type="VBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer" unique_id=1597731067]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="InspectorTreeContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox" unique_id=802404839 node_paths=PackedStringArray("additional_tabs") instance=ExtResource("10_3gm8r")]
+unique_name_in_owner = true
+layout_mode = 2
+additional_tabs = {
+NodePath("../TracksEditor"): &"Animation",
+NodePath("../EnvironmentStateEditorsContainer"): &"Environment"
+}
+
+[node name="EnvironmentStateEditorsContainer" type="ScrollContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox" unique_id=679658825]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+scroll_hint_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer" unique_id=748849376]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LockAxisContainer" type="HBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer" unique_id=1201298607]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/LockAxisContainer" unique_id=847316394]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Axis Lock"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/LockAxisContainer" unique_id=590236695]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/LockAxisContainer/MarginContainer" unique_id=1815419508]
+show_behind_parent = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_type_variation = &"TreeSecondary"
+
+[node name="HFlowContainer" type="HFlowContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/LockAxisContainer/MarginContainer" unique_id=1208800675]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StateLockX" type="CheckBox" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/LockAxisContainer/MarginContainer/HFlowContainer" unique_id=362977627]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "X"
+
+[node name="StateLockY" type="CheckBox" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/LockAxisContainer/MarginContainer/HFlowContainer" unique_id=681389989]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Y"
+
+[node name="StateLockZ" type="CheckBox" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/LockAxisContainer/MarginContainer/HFlowContainer" unique_id=2019754826]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Z"
+
+[node name="NoTransitionContainer" type="HBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer" unique_id=1788555358]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/NoTransitionContainer" unique_id=1357699126]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No Transition"
+vertical_alignment = 1
+
+[node name="StateNoTransition" type="CheckBox" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/NoTransitionContainer" unique_id=374943904]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "On"
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/NoTransitionContainer/StateNoTransition" unique_id=1392635601]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_type_variation = &"TreeSecondary"
+
+[node name="GroundedContainer" type="HBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer" unique_id=214580911]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/GroundedContainer" unique_id=783249480]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Grounded"
+
+[node name="StateGrounded" type="OptionButton" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/GroundedContainer" unique_id=1098193042]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+flat = true
+selected = 0
+item_count = 3
+popup/item_0/text = "Auto"
+popup/item_0/id = 0
+popup/item_1/text = "Air"
+popup/item_1/id = 1
+popup/item_2/text = "Ground"
+popup/item_2/id = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/GroundedContainer/StateGrounded" unique_id=173627439]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_type_variation = &"TreeSecondary"
+
+[node name="GroundHeightContainer" type="HBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer" unique_id=1913788868]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="GroundHeightLabelContainer" type="HBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/GroundHeightContainer" unique_id=1658321373]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/GroundHeightContainer/GroundHeightLabelContainer" unique_id=697435861]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ground Height"
+vertical_alignment = 1
+
+[node name="Offset" type="HBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer" unique_id=425894792]
+layout_mode = 2
+
+[node name="OffsetLabelContainer" type="HBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/Offset" unique_id=615054253]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/Offset/OffsetLabelContainer" unique_id=478582357]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Offset"
+vertical_alignment = 1
+
+[node name="OffsetSpinBox" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/Offset" unique_id=1401795726 instance=ExtResource("5_acrle")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = Vector3(-100, -100, -100)
+max_value = Vector3(100, 100, 100)
+step = 0.01
+
+[node name="Rotate" type="HBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer" unique_id=2025182639]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RotateLabelContainer" type="HBoxContainer" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/Rotate" unique_id=90326785]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer/Rotate/RotateLabelContainer" unique_id=424655114]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Rotate"
+vertical_alignment = 1
+
+[node name="BottomSpacer" type="Control" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/EnvironmentStateEditorsContainer/VBoxContainer" unique_id=297197885]
+layout_mode = 2
+
+[node name="TracksEditor" parent="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox" unique_id=727662453 node_paths=PackedStringArray("frame_timeline") instance=ExtResource("10_lqd07")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+frame_timeline = NodePath("../../../../FrameSlider")
+
+[connection signal="pressed" from="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MoveAdd" to="." method="_on_move_add_pressed"]
+[connection signal="pressed" from="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MoveAddChild" to="." method="_on_move_add_child_pressed"]
+[connection signal="pressed" from="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MoveUp" to="." method="_on_move_up_pressed"]
+[connection signal="pressed" from="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MoveDown" to="." method="_on_move_down_pressed"]
+[connection signal="pressed" from="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MoveLinkedChild" to="." method="_on_move_linked_child_pressed"]
+[connection signal="pressed" from="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MoveRefresh" to="." method="_on_move_refresh_pressed"]
+[connection signal="pressed" from="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MovePreview" to="." method="_on_move_preview_pressed"]
+[connection signal="pressed" from="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MoveRemove" to="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MoveRemove/MoveRemoveDialog" method="popup_centered"]
+[connection signal="confirmed" from="VBoxContainer/Content/InformationEditor/MovesList/MovesFold/MovesContainer/HBoxContainer/MoveRemove/MoveRemoveDialog" to="." method="_on_move_remove_dialog_confirmed"]
+[connection signal="pressed" from="VBoxContainer/Content/BehaviorEditor/SceneTimeline/HBoxContainer/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Content/BehaviorEditor/SceneTimeline/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Content/BehaviorEditor/SceneTimeline/HBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Content/BehaviorEditor/SceneTimeline/HBoxContainer/ResetCharacterPosition" to="." method="_on_reset_character_position_pressed"]
+[connection signal="expand_state_changed" from="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/InfoVBox/InspectorTreeContainer" to="VBoxContainer/Content/BehaviorEditor/SceneTimeline/SceneBottom/HSplitContainer/ControlsContainer" method="set_visible"]

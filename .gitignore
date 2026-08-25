@@ -1,0 +1,9 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Assets
+*.blend1
+
+# Additional plugins used during development
+addons/godot-plugin-refresher/

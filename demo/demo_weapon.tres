@@ -1,0 +1,272 @@
+[gd_resource type="Resource" script_class="WeaponInformation" format=3 uid="uid://b3uim16lhesnb"]
+
+[ext_resource type="Script" uid="uid://bkr257dxa06w2" path="res://addons/combatdata/src/WeaponMove.gd" id="1_h6qcn"]
+[ext_resource type="Script" uid="uid://goquuvorm4wa" path="res://addons/combatdata/src/WeaponInformation.gd" id="2_jd572"]
+[ext_resource type="Script" uid="uid://bex044tkac0h" path="res://addons/combatdata/src/WeaponDamage.gd" id="2_wnmyd"]
+[ext_resource type="Script" uid="uid://crwnkmuj4hyqv" path="res://addons/combatdata/src/tracks/WeaponTrack.gd" id="3_s64ho"]
+[ext_resource type="Script" uid="uid://dce1wfufe2fs0" path="res://addons/combatdata/src/tracks/WeaponTrackHitbox.gd" id="4_s64ho"]
+[ext_resource type="Script" uid="uid://bcaojhn04dvt3" path="res://addons/combatdata/src/tracks/WeaponTrackCancelFlags.gd" id="5_axiy3"]
+[ext_resource type="Script" uid="uid://c2sr3ri75lyx6" path="res://addons/combatdata/src/tracks/WeaponTrackMovement.gd" id="6_dsx2t"]
+
+[sub_resource type="Resource" id="Resource_dsx2t"]
+script = ExtResource("2_wnmyd")
+
+[sub_resource type="Resource" id="Resource_6gc4o"]
+script = ExtResource("2_wnmyd")
+
+[sub_resource type="Resource" id="Resource_mx2pi"]
+script = ExtResource("1_h6qcn")
+name = &"Visible 2"
+animation = &"Kick"
+logic = "if frame>30:# Replace with animation's end
+	handler.stop_move()
+	return
+"
+hidden = true
+
+[sub_resource type="Resource" id="Resource_njrsc"]
+resource_name = "Hit Box"
+script = ExtResource("4_s64ho")
+bone_name = "LowerArm.L"
+duration = 8
+start_frame = 12
+
+[sub_resource type="Resource" id="Resource_hpb4y"]
+resource_name = "Gravity"
+script = ExtResource("6_dsx2t")
+type = 2
+velocity = Vector3(0, -8, 0)
+multiply_velocity_by_delta = true
+infinite = true
+debug_color = Color(0.43137255, 0.69411767, 0.7882353, 1)
+
+[sub_resource type="Resource" id="Resource_mhdgx"]
+resource_name = "Cancel Flags"
+script = ExtResource("5_axiy3")
+flags = Array[int]([1])
+start_frame = 18
+
+[sub_resource type="Resource" id="Resource_2770b"]
+resource_name = "Cancel Flags End"
+script = ExtResource("5_axiy3")
+flags = Array[int]([66])
+start_frame = 24
+
+[sub_resource type="Resource" id="Resource_jq4ym"]
+script = ExtResource("1_h6qcn")
+name = &"Light2"
+next_moves = Array[ExtResource("1_h6qcn")]([SubResource("Resource_mx2pi")])
+animation = &"Punch2"
+logic = "if frame > 40:# Replace with animation's end
+	handler.stop_move()
+	return
+
+if frame == 0:
+	handler.velocity *= 0.1
+"
+damage = Array[ExtResource("2_wnmyd")]([SubResource("Resource_6gc4o")])
+tracks = Array[ExtResource("3_s64ho")]([SubResource("Resource_njrsc"), SubResource("Resource_hpb4y"), SubResource("Resource_mhdgx"), SubResource("Resource_2770b")])
+hidden = true
+
+[sub_resource type="Resource" id="Resource_prdvg"]
+resource_name = "Gravity"
+script = ExtResource("6_dsx2t")
+type = 2
+velocity = Vector3(0, -8, 0)
+multiply_velocity_by_delta = true
+infinite = true
+debug_color = Color(0.43137255, 0.69411767, 0.7882353, 1)
+
+[sub_resource type="Resource" id="Resource_bwemj"]
+resource_name = "Stop"
+script = ExtResource("6_dsx2t")
+duration = 0
+
+[sub_resource type="Resource" id="Resource_hswch"]
+resource_name = "Cancel Flags"
+script = ExtResource("5_axiy3")
+flags = Array[int]([66])
+start_frame = 19
+
+[sub_resource type="Resource" id="Resource_26qqf"]
+script = ExtResource("1_h6qcn")
+name = &"Visible Attack"
+input = 1
+animation = &"Kick2"
+logic = "if frame>30:# Replace with animation's end
+	handler.stop_move()
+	return
+"
+tracks = Array[ExtResource("3_s64ho")]([SubResource("Resource_prdvg"), SubResource("Resource_bwemj"), SubResource("Resource_hswch")])
+
+[sub_resource type="Resource" id="Resource_yxqd3"]
+resource_name = "Hit Box"
+script = ExtResource("4_s64ho")
+bone_name = "LowerArm.R"
+length = 1.1
+radius = 0.45
+offset = Vector3(0, 0.4, 0)
+duration = 8
+start_frame = 6
+
+[sub_resource type="Resource" id="Resource_28fd0"]
+resource_name = "Cancel Flags"
+script = ExtResource("5_axiy3")
+flags = Array[int]([3])
+start_frame = 12
+
+[sub_resource type="Resource" id="Resource_15c4d"]
+resource_name = "Gravity"
+script = ExtResource("6_dsx2t")
+type = 2
+velocity = Vector3(0, -8, 0)
+multiply_velocity_by_delta = true
+drag_enabled = true
+drag_amount = 30.0
+infinite = true
+debug_color = Color(0.43137255, 0.69411767, 0.7882353, 1)
+
+[sub_resource type="Resource" id="Resource_ey1sx"]
+resource_name = "Movement"
+script = ExtResource("6_dsx2t")
+type = 3
+velocity = Vector3(0, 0, -6)
+duration = 0
+start_frame = 7
+
+[sub_resource type="Resource" id="Resource_axiy3"]
+script = ExtResource("1_h6qcn")
+name = &"Light1"
+next_moves = Array[ExtResource("1_h6qcn")]([SubResource("Resource_jq4ym"), SubResource("Resource_26qqf")])
+animation = &"Punch1"
+logic = "if frame > 20:# Replace with animation's end
+	handler.stop_move()
+	return
+
+if frame == 0:
+	handler.velocity *= 0.1
+"
+conditions = 1
+damage = Array[ExtResource("2_wnmyd")]([SubResource("Resource_dsx2t")])
+tracks = Array[ExtResource("3_s64ho")]([SubResource("Resource_yxqd3"), SubResource("Resource_28fd0"), SubResource("Resource_15c4d"), SubResource("Resource_ey1sx")])
+
+[sub_resource type="Resource" id="Resource_5puj5"]
+script = ExtResource("2_wnmyd")
+
+[sub_resource type="Resource" id="Resource_sf1yj"]
+resource_name = "Movement"
+script = ExtResource("6_dsx2t")
+type = -1
+drag_enabled = true
+drag_amount = 2.0
+infinite = true
+
+[sub_resource type="Resource" id="Resource_0wfsi"]
+resource_name = "Hit Box"
+script = ExtResource("4_s64ho")
+bone_name = "Shin.L"
+length = 2.2
+radius = 0.8
+offset = Vector3(0, 0, 0.7)
+duration = 12
+start_frame = 17
+
+[sub_resource type="Resource" id="Resource_mragg"]
+resource_name = "Movement"
+script = ExtResource("6_dsx2t")
+type = 2
+velocity = Vector3(0, 16, 0)
+duration = 0
+start_frame = 19
+
+[sub_resource type="Resource" id="Resource_lft62"]
+resource_name = "Movement"
+script = ExtResource("6_dsx2t")
+type = 2
+velocity = Vector3(0, -42, 0)
+multiply_velocity_by_delta = true
+duration = 21
+start_frame = 19
+
+[sub_resource type="Resource" id="Resource_4w8px"]
+script = ExtResource("1_h6qcn")
+name = &"Launcher"
+input = 1
+animation = &"Launcher"
+logic = "if frame > 60 :# Replace with animation's end
+	handler.stop_move()
+	return
+
+match frame:
+	0:
+		handler.velocity *= 0.5
+		handler.velocity.y *= 0.1
+
+	12:
+		handler.velocity *= 0.3
+"
+conditions = 19
+damage = Array[ExtResource("2_wnmyd")]([SubResource("Resource_5puj5")])
+tracks = Array[ExtResource("3_s64ho")]([SubResource("Resource_sf1yj"), SubResource("Resource_0wfsi"), SubResource("Resource_mragg"), SubResource("Resource_lft62")])
+
+[sub_resource type="Resource" id="Resource_qw2iw"]
+script = ExtResource("2_wnmyd")
+
+[sub_resource type="Resource" id="Resource_kmj8t"]
+resource_name = "Gravity"
+script = ExtResource("6_dsx2t")
+type = 2
+velocity = Vector3(0, -8, 0)
+multiply_velocity_by_delta = true
+drag_enabled = true
+drag_amount = 5.0
+infinite = true
+debug_color = Color(0.43137255, 0.69411767, 0.7882353, 1)
+
+[sub_resource type="Resource" id="Resource_wtkuh"]
+resource_name = "Forward Impulse"
+script = ExtResource("6_dsx2t")
+type = 3
+velocity = Vector3(0, 0, -4)
+duration = 0
+start_frame = 19
+
+[sub_resource type="Resource" id="Resource_1i0ke"]
+resource_name = "Hit Box"
+script = ExtResource("4_s64ho")
+bone_name = "Shin.R"
+length = 2.2
+radius = 0.8
+offset = Vector3(0, 0.6, 0)
+duration = 19
+start_frame = 17
+
+[sub_resource type="Resource" id="Resource_quixu"]
+resource_name = "Jump Cancel"
+script = ExtResource("5_axiy3")
+flags = Array[int]([4])
+start_frame = 31
+
+[sub_resource type="Resource" id="Resource_wvoxu"]
+script = ExtResource("1_h6qcn")
+name = &"Heavy"
+input = 1
+animation = &"Heavy1"
+logic = "if frame > 52:# Replace with animation's end
+	handler.stop_move()
+	return
+
+# Run logic on specific frames using match statements
+match frame:
+	0:
+		handler.velocity *= 0.1
+"
+conditions = 1
+damage = Array[ExtResource("2_wnmyd")]([SubResource("Resource_qw2iw")])
+tracks = Array[ExtResource("3_s64ho")]([SubResource("Resource_kmj8t"), SubResource("Resource_wtkuh"), SubResource("Resource_1i0ke"), SubResource("Resource_quixu")])
+
+[resource]
+script = ExtResource("2_jd572")
+identifier = &"demo_weapon"
+moves = Array[ExtResource("1_h6qcn")]([SubResource("Resource_axiy3"), SubResource("Resource_4w8px"), SubResource("Resource_wvoxu")])
+metadata/_custom_type_script = "uid://goquuvorm4wa"

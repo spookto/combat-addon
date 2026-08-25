@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://qxqe83xg1b0y"]
+
+[ext_resource type="Script" uid="uid://cd02rjefbh081" path="res://addons/combatdata/src/vector_3_spin_box.gd" id="1_c4scj"]
+
+[node name="Vector3SpinBox" type="HFlowContainer" unique_id=508205400]
+offset_right = 131.0
+offset_bottom = 22.0
+mouse_filter = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+script = ExtResource("1_c4scj")

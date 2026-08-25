@@ -1,0 +1,261 @@
+[gd_scene format=3 uid="uid://dwitchp7sth7w"]
+
+[ext_resource type="Script" uid="uid://ddj0gq7bpi3ej" path="res://addons/combatdata/editor/src/combatdata_move_editor.gd" id="1_pxf4j"]
+[ext_resource type="Script" uid="uid://jd17gbj6wuql" path="res://addons/combatdata/editor/src/icon_button.gd" id="1_xsde2"]
+[ext_resource type="Texture2D" uid="uid://dbv4toi3btfnh" path="res://addons/combatdata/icons/light_attack.svg" id="2_pxf4j"]
+[ext_resource type="Texture2D" uid="uid://bh2474isq7wd8" path="res://addons/combatdata/icons/heavy_attack.svg" id="3_2wyux"]
+[ext_resource type="Script" uid="uid://y6j32an0gjmx" path="res://addons/combatdata/editor/src/variable_bg.gd" id="4_1rmgh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_usm0c"]
+
+[node name="MoveInfoContainer" type="PanelContainer" unique_id=1924471826]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("1_pxf4j")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1504659639]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1025796567]
+layout_mode = 2
+
+[node name="NameEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer" unique_id=335764735]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Move Name"
+
+[node name="EditMoveScript" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1187334617]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Edit move's script."
+theme_type_variation = &"FlatButton"
+script = ExtResource("1_xsde2")
+icon_name = &"Script"
+min_size = 0.0
+
+[node name="InspectMove" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=565775059]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Edit move in inspector."
+theme_type_variation = &"FlatButton"
+script = ExtResource("1_xsde2")
+icon_name = &"Edit"
+min_size = 0.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer" unique_id=2002250961]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+scroll_hint_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer" unique_id=1485098306]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InputContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer" unique_id=726629196]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/InputContainer" unique_id=891803499]
+custom_minimum_size = Vector2(90, 32)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Input"
+vertical_alignment = 1
+
+[node name="InputOption" type="OptionButton" parent="VBoxContainer/ScrollContainer/VBoxContainer/InputContainer" unique_id=1645919090]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+flat = true
+selected = 2
+fit_to_longest_item = false
+item_count = 3
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Light"
+popup/item_1/icon = ExtResource("2_pxf4j")
+popup/item_1/id = 1
+popup/item_2/text = "Heavy"
+popup/item_2/icon = ExtResource("3_2wyux")
+popup/item_2/id = 2
+
+[node name="Panel" type="Panel" parent="VBoxContainer/ScrollContainer/VBoxContainer/InputContainer/InputOption" unique_id=2075364380]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ConditionsContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer" unique_id=660252152]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/ConditionsContainer" unique_id=547766836]
+custom_minimum_size = Vector2(90, 32)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Conditions"
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/ConditionsContainer" unique_id=644068219]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ConditionsBox" type="HFlowContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/ConditionsContainer/VBoxContainer2" unique_id=520165867]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("4_1rmgh")
+
+[node name="DamageContainer" type="BoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer" unique_id=932113498]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/DamageContainer" unique_id=1518698912]
+custom_minimum_size = Vector2(90, 32)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Damage"
+vertical_alignment = 1
+
+[node name="Control" type="PanelContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/DamageContainer" unique_id=37812948]
+custom_minimum_size = Vector2(0, 240)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TreeSecondary"
+
+[node name="DamageTabContainer" type="TabContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/DamageContainer/Control" unique_id=1156997249]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/tabbar_background = SubResource("StyleBoxEmpty_usm0c")
+
+[node name="VisualContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1470135899]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/VisualContainer" unique_id=1397340504]
+custom_minimum_size = Vector2(90, 32)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Visuals"
+vertical_alignment = 1
+
+[node name="GridContainer" type="HFlowContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/VisualContainer" unique_id=1161384801]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_1rmgh")
+
+[node name="VisualHoldButton" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/VisualContainer/GridContainer" unique_id=1430997437]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Hold"
+flat = true
+
+[node name="VisualExcludeButton" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/VisualContainer/GridContainer" unique_id=998603726]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Exclude From Movelist"
+flat = true
+
+[node name="VisualExcludeIfChildButton" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/VisualContainer/GridContainer" unique_id=364895150]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Exclude If Child"
+flat = true
+
+[node name="VisualAttributesUpButton" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/VisualContainer/GridContainer" unique_id=393757697]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Propagate Attributes Up"
+flat = true
+
+[node name="VisualExcludeIfRootButton" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/VisualContainer/GridContainer" unique_id=2136539047]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Exclude If Root"
+flat = true
+
+[node name="VisualInputContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/VisualContainer/GridContainer" unique_id=568665611]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/VisualContainer/GridContainer/VisualInputContainer" unique_id=1086791420]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Input"
+vertical_alignment = 1
+
+[node name="VisualInputOption" type="OptionButton" parent="VBoxContainer/ScrollContainer/VBoxContainer/VisualContainer/GridContainer/VisualInputContainer" unique_id=1226493140]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+selected = 0
+item_count = 3
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Light"
+popup/item_1/id = 1
+popup/item_2/text = "Heavy"
+popup/item_2/id = 2
+
+[node name="BehaviourContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer" unique_id=816960085]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/BehaviourContainer" unique_id=1245326255]
+custom_minimum_size = Vector2(90, 32)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Behaviour"
+vertical_alignment = 1
+
+[node name="GridContainer" type="HFlowContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/BehaviourContainer" unique_id=676658164]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_1rmgh")
+
+[node name="BehaviourNoTurnButton" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/BehaviourContainer/GridContainer" unique_id=1740937388]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "Prevents the character from turning towards the lock-on target when the move starts."
+text = "No Turn"
+flat = true
+
+[node name="FlagsContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1724850305]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/FlagsContainer" unique_id=199468481]
+custom_minimum_size = Vector2(90, 32)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Flags"
+vertical_alignment = 1
+
+[node name="GridContainer" type="HFlowContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/FlagsContainer" unique_id=1284359892]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_1rmgh")
+
+[node name="FlagDropStart" type="CheckBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/FlagsContainer/GridContainer" unique_id=795955931]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "Prevents the character from turning towards the lock-on target when the move starts."
+text = "Drop Start"
+flat = true

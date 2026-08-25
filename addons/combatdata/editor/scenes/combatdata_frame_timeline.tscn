@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bsou1j561oc5l"]
+
+[ext_resource type="Script" uid="uid://d4i01nwccvyha" path="res://addons/combatdata/src/combatdata_frame_timeline.gd" id="1_bje5q"]
+
+[node name="CombatdataFrameTimeline" type="HSlider" unique_id=922315736]
+offset_right = 24.0
+offset_bottom = 24.0
+script = ExtResource("1_bje5q")

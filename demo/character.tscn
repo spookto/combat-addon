@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://dxipxja0pys8x"]
+
+[ext_resource type="Script" uid="uid://djlowvcnr44hr" path="res://demo/character.gd" id="1_8ucwc"]
+[ext_resource type="Script" uid="uid://rxweoj0flqlv" path="res://addons/combatdata/src/WeaponHandler.gd" id="1_g21eg"]
+[ext_resource type="PackedScene" uid="uid://cxk0nu13ld7ai" path="res://demo/charactermodel.blend" id="1_qpfef"]
+[ext_resource type="Resource" uid="uid://b3uim16lhesnb" path="res://demo/demo_weapon.tres" id="3_rx4ba"]
+[ext_resource type="Script" uid="uid://6jjx4cpgg1d3" path="res://addons/combatdata/src/WeaponHandlerAnimationNode.gd" id="3_ubwwu"]
+[ext_resource type="Script" uid="uid://cyooiwsejvfbl" path="res://demo/player_camera.gd" id="5_8ucwc"]
+[ext_resource type="Script" uid="uid://dx35r3k5s2bry" path="res://demo/debug_ui.gd" id="7_7t280"]
+[ext_resource type="Script" uid="uid://bvcbcvd0moud7" path="res://addons/combatdata/src/WeaponMovesLabel.gd" id="8_wkwpf"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8ucwc"]
+height = 1.8
+
+[sub_resource type="AnimationNodeExtension" id="AnimationNodeExtension_ubwwu"]
+resource_local_to_scene = false
+resource_name = ""
+script = ExtResource("3_ubwwu")
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wkwpf"]
+animation = &"Air"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8ucwc"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ubwwu"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7t280"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wkwpf"]
+xfade_time = 0.12
+advance_mode = 2
+advance_condition = &"run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7khhf"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4a7xj"]
+xfade_time = 0.1
+advance_mode = 2
+advance_condition = &"in_air"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8x1uo"]
+xfade_time = 0.12
+advance_mode = 2
+advance_condition = &"grounded"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cper0"]
+xfade_time = 0.1
+advance_mode = 2
+advance_condition = &"in_air"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_4a7xj"]
+states/Air/node = SubResource("AnimationNodeAnimation_wkwpf")
+states/Air/position = Vector2(598.6666, 43.33333)
+states/Idle/node = SubResource("AnimationNodeAnimation_8ucwc")
+states/Idle/position = Vector2(460.55554, 100.14678)
+states/Run/node = SubResource("AnimationNodeAnimation_ubwwu")
+states/Run/position = Vector2(460.88885, 3.3333197)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_7t280"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_wkwpf"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_7khhf"), "Run", "Air", SubResource("AnimationNodeStateMachineTransition_4a7xj"), "Air", "Idle", SubResource("AnimationNodeStateMachineTransition_8x1uo"), "Idle", "Air", SubResource("AnimationNodeStateMachineTransition_cper0")]
+graph_offset = Vector2(-232, -52)
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_wkwpf"]
+xfade_time = 0.1
+input_0/name = "default"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "attack"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_7t280"]
+graph_offset = Vector2(-547.7778, 67.77778)
+nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_4a7xj")
+nodes/StateMachine/position = Vector2(-333.33334, 111.111115)
+nodes/Transition/node = SubResource("AnimationNodeTransition_wkwpf")
+nodes/Transition/position = Vector2(140, 140)
+nodes/Attack/node = SubResource("AnimationNodeExtension_ubwwu")
+nodes/Attack/position = Vector2(-40, 280)
+node_connections = [&"output", 0, &"Transition", &"Transition", 0, &"StateMachine", &"Transition", 1, &"Attack"]
+
+[node name="Character" type="CharacterBody3D" unique_id=505424294]
+script = ExtResource("1_8ucwc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=982070062]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_8ucwc")
+
+[node name="charactermodel" parent="." unique_id=1263819511 instance=ExtResource("1_qpfef")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="AnimationTree" type="AnimationTree" parent="charactermodel" unique_id=1469379528]
+unique_name_in_owner = true
+root_node = NodePath("%AnimationTree/..")
+root_motion_track = NodePath("PlayerRig/Skeleton3D:Root")
+tree_root = SubResource("AnimationNodeBlendTree_7t280")
+anim_player = NodePath("../AnimationPlayer")
+parameters/StateMachine/conditions/grounded = false
+parameters/StateMachine/conditions/idle = true
+parameters/StateMachine/conditions/in_air = false
+parameters/StateMachine/conditions/run = false
+parameters/Transition/current_state = "default"
+parameters/Transition/transition_request = ""
+parameters/Transition/current_index = 0
+parameters/Attack/animation = "Run"
+parameters/Attack/frame = 14
+
+[node name="WeaponHandler" type="Node3D" parent="." unique_id=658210261 node_paths=PackedStringArray("source_skeleton", "animation_tree")]
+unique_name_in_owner = true
+script = ExtResource("1_g21eg")
+source_skeleton = NodePath("../charactermodel/PlayerRig/Skeleton3D")
+animation_tree = NodePath("../charactermodel/AnimationTree")
+information = ExtResource("3_rx4ba")
+metadata/_custom_type_script = "uid://rxweoj0flqlv"
+
+[node name="CameraPivot" type="Node3D" parent="." unique_id=316345363]
+top_level = true
+script = ExtResource("5_8ucwc")
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1314321471]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5)
+
+[node name="DebugUI" type="CanvasLayer" parent="." unique_id=761767246]
+script = ExtResource("7_7t280")
+
+[node name="PanelContainer" type="PanelContainer" parent="DebugUI" unique_id=197938513]
+anchors_preset = -1
+anchor_right = 0.3
+focus_behavior_recursive = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugUI/PanelContainer" unique_id=1499373732]
+layout_mode = 2
+
+[node name="SpeedScale" type="HBoxContainer" parent="DebugUI/PanelContainer/VBoxContainer" unique_id=1876546525]
+layout_mode = 2
+
+[node name="SpeedLabel" type="Label" parent="DebugUI/PanelContainer/VBoxContainer/SpeedScale" unique_id=1047314664]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Weapon Speed"
+vertical_alignment = 1
+
+[node name="SpeedSlider" type="HSlider" parent="DebugUI/PanelContainer/VBoxContainer/SpeedScale" unique_id=1544025561]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 2.0
+step = 0.1
+
+[node name="JumpCancels" type="HBoxContainer" parent="DebugUI/PanelContainer/VBoxContainer" unique_id=539978802]
+layout_mode = 2
+
+[node name="JumpCLabel" type="Label" parent="DebugUI/PanelContainer/VBoxContainer/JumpCancels" unique_id=686420992]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Jump Cancels All"
+vertical_alignment = 1
+
+[node name="JumpCCheckBox" type="CheckBox" parent="DebugUI/PanelContainer/VBoxContainer/JumpCancels" unique_id=503887756]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "On"
+
+[node name="WeaponMovesLabel" type="RichTextLabel" parent="DebugUI/PanelContainer/VBoxContainer" unique_id=134083532]
+layout_mode = 2
+fit_content = true
+scroll_active = false
+script = ExtResource("8_wkwpf")
+weapon = ExtResource("3_rx4ba")
+metadata/_custom_type_script = "uid://bvcbcvd0moud7"
+
+[editable path="charactermodel"]

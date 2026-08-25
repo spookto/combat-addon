@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CombatAddonSettings" format=3 uid="uid://8emh5ah1pupe"]
+
+[ext_resource type="Texture2D" uid="uid://b628uxjej1ik5" path="res://addons/combatdata/icons/empty_attack.svg" id="1_j2dme"]
+[ext_resource type="Texture2D" uid="uid://dkr0mfd5urtod" path="res://addons/combatdata/icons/dash.svg" id="1_mu6lt"]
+[ext_resource type="Script" uid="uid://bj6uk4dyquo2v" path="res://addons/combatdata/src/CombatAddonSettings.gd" id="1_yfwvb"]
+[ext_resource type="Texture2D" uid="uid://bh2474isq7wd8" path="res://addons/combatdata/icons/heavy_attack.svg" id="2_mu6lt"]
+[ext_resource type="Texture2D" uid="uid://dbv4toi3btfnh" path="res://addons/combatdata/icons/light_attack.svg" id="3_ff6fk"]
+[ext_resource type="Texture2D" uid="uid://ca1trcgmkb5mk" path="res://addons/combatdata/icons/jump.svg" id="4_ff6fk"]
+[ext_resource type="Texture2D" uid="uid://d3ihoye5odcdm" path="res://addons/combatdata/icons/next_attack.svg" id="4_sgs1d"]
+
+[resource]
+script = ExtResource("1_yfwvb")
+movelist_icon_empty = ExtResource("1_j2dme")
+movelist_icon_next = ExtResource("4_sgs1d")
+movelist_icon_jump = ExtResource("4_ff6fk")
+movelist_icon_dash = ExtResource("1_mu6lt")
+movelist_icon_light = ExtResource("3_ff6fk")
+movelist_icon_heavy = ExtResource("2_mu6lt")
+metadata/_custom_type_script = "uid://bj6uk4dyquo2v"

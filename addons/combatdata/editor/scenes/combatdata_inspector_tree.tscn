@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bpfeb0i5hr1tm"]
+
+[ext_resource type="Script" uid="uid://8b8o30mhm10b" path="res://addons/combatdata/editor/src/combatdata_inspector_tree.gd" id="1_q0tk2"]
+
+[node name="InspectorTree" type="VBoxContainer" unique_id=802404839]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+script = ExtResource("1_q0tk2")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1856592195]
+layout_mode = 2
+
+[node name="TabBarContainer" type="PanelContainer" parent="PanelContainer" unique_id=696565765]
+layout_mode = 2
+theme_type_variation = &"PanelContainerTabbarInner"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/TabBarContainer" unique_id=1133730167]
+layout_mode = 2
+
+[node name="TabBar" type="TabBar" parent="PanelContainer/TabBarContainer/HBoxContainer" unique_id=342373935]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TabBarInner"
+
+[node name="ExpandButton" type="Button" parent="PanelContainer/TabBarContainer/HBoxContainer" unique_id=1747949270]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Tree" type="Tree" parent="." unique_id=1192108164]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/button_margin = 0
+scroll_hint_mode = 2

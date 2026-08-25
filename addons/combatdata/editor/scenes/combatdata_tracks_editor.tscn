@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://bgyxsdh63ktwu"]
+
+[ext_resource type="Script" uid="uid://cug6mxmmhogwc" path="res://addons/combatdata/src/combatdata_tracks_editor.gd" id="1_uumqu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mga6f"]
+
+[node name="Tracks" type="PanelContainer" unique_id=727662453]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_mga6f")
+script = ExtResource("1_uumqu")
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=726227297]
+show_behind_parent = true
+layout_mode = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=520901876]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MainView" type="HSplitContainer" parent="VBoxContainer/HBoxContainer" unique_id=2021547470]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/MainView" unique_id=901379606]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/MainView/VBoxContainer" unique_id=2067593080]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="OptionsButton" type="MenuButton" parent="VBoxContainer/HBoxContainer/MainView/VBoxContainer/HBoxContainer" unique_id=1594106461]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 2
+theme_type_variation = &"FlatButton"
+flat = false
+icon_alignment = 1
+
+[node name="AddButton" type="MenuButton" parent="VBoxContainer/HBoxContainer/MainView/VBoxContainer/HBoxContainer" unique_id=38063502]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+focus_mode = 2
+theme_type_variation = &"FlatButton"
+flat = false
+icon_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer/MainView/VBoxContainer/HBoxContainer" unique_id=2093472749]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+
+[node name="CompileButton" type="Button" parent="VBoxContainer/HBoxContainer/MainView/VBoxContainer/HBoxContainer" unique_id=1315433844]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"FlatButton"
+icon_alignment = 1
+
+[node name="TracksView" type="Control" parent="VBoxContainer/HBoxContainer/MainView/VBoxContainer" unique_id=499042721]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TimelineContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/MainView" unique_id=1497842638]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Timeline" type="Control" parent="VBoxContainer/HBoxContainer/MainView/TimelineContainer" unique_id=223611988]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HScrollBar" type="HScrollBar" parent="VBoxContainer/HBoxContainer" unique_id=417579511]
+unique_name_in_owner = true
+layout_mode = 2
+step = 0.001
+page = 1.9140625
+
+[node name="VScrollBar" type="VScrollBar" parent="VBoxContainer" unique_id=584222392]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
